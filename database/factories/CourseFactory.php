@@ -11,9 +11,10 @@ $factory->define(App\Course::class, function (Faker $faker) {
         'level_id' => App\Level::all()->random()->id,
         'name' => $name,
         'slug' => str_slug($name,'-'),
+        'description' => $faker->paragraph,
         'picture' => \Faker\Provider\Image::image(storage_path(). '/app/public/courses', 600, 350,'business',false),
         'status' => $status,
-        'previous_approved' => $satatus !== App\Course::PUBLISHED ? false: true,
-        'previous_rejected' => $satatus === App\Course::REJECT ? true: false,
+        'previous_approved' => $status !== App\Course::PUBLISHED ? false: true,
+        'previous_rejected' => $status === App\Course::REJECT ? true: false,
     ];
 });

@@ -23,7 +23,7 @@ class CreateCoursesTable extends Migration
 
             $table->string('name');
             $table->text('description');
-            $table->string('column');
+            $table->string('slug');
             $table->string('picture')->nullable();
             $table->enum('status',[
                 Course::PUBLISHED,Course::PENDING,Course::REJECT
