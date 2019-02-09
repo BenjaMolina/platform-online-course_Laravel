@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -35,5 +36,16 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function redirectToProvider(string $driver){
+        //Redirige a la pagina para loguearnos (facbook o github)
+        return Socialite::driver($driver)->redirect();
+    }
+
+    public function handleProviderCallback(string $driver){
+        //Obtenemos los datos en caso de un login exitoso
+        $socialUser = Socialite::driver($driver)->user();
+        dd($socialUser);
     }
 }
