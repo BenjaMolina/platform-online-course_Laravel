@@ -7,6 +7,22 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+## Used Packages
+
+- [Intervention Image](http://image.intervention.io/getting_started/introduction).
+
+- [Laravel Debugbar](https://github.com/barryvdh/laravel-debugbar).
+
+- [Laravel Cashier](https://laravel.com/docs/5.6/billing).
+
+- [Laravel Datatables](https://github.com/yajra/laravel-datatables).
+
+- [Laravel Lang](https://github.com/caouecs/Laravel-lang).
+
+- [Laravel Socialite](https://laravel.com/docs/5.6/socialite).
+
+- [Laravel IDE Helper](https://github.com/barryvdh/laravel-ide-helper).
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:

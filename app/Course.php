@@ -4,6 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Course
+ *
+ * @property-read \App\Category $category
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Goal[] $goals
+ * @property-read \App\Level $level
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Requirement[] $requirements
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Review[] $reviews
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Student[] $students
+ * @property-read \App\Teacher $teacher
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Course newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Course newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Course query()
+ * @mixin \Eloquent
+ */
 class Course extends Model
 {
     const PUBLISHED = 1;

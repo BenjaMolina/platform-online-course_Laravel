@@ -4,6 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Student
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Course[] $courses
+ * @property-read \App\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Student newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Student newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Student query()
+ * @mixin \Eloquent
+ */
 class Student extends Model
 {
     
