@@ -60,7 +60,6 @@ class User extends Authenticatable
 
     
     public static function navigation() {
-        
         return auth()->check() ? auth()->user()->role->name : 'guest';
     }
 

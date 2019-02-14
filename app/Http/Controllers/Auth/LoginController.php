@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Student;
 use App\UserSocialAccount;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -39,6 +40,14 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+
+    public function logout(Request $request) {
+        auth()->logout();
+        session()->flush();
+
+        return redirect(route('login'));
     }
 
     public function redirectToProvider(string $driver){
