@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Student;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -68,5 +71,20 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    
+
+    
+    //Sobreescribimos el metodo de registro que se encuentra en vendor\laravel\framework\src\Illuminate\Foundation\Auth
+    protected function registered(Request $request, $user)
+    {
+        //Este metodo se ejecuta despues de realizar el registro a la BD
+
+        Student::create([
+            'user_id' => $user->id,
+        ]);
+
+        return redirect('/');
     }
 }
