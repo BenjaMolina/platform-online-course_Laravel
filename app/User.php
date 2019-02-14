@@ -22,6 +22,23 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected static function boot(){
+        parent::boot();
+        
+        /*----Eventos----*/
+
+        //Se ejecuta cuando SE ESTA CREANDO EL USUARIO el usuario
+        static::creating(function(User $user){
+            //Si no se esta creando un usuario desde la terminal (seeders)
+            if(!\App::runningInConsole()){
+                $user->slug = str_slug($user->name. " ". $user->last_name, "-");
+            }
+        });
+
+
+        /*----Eventos----*/
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -41,6 +58,8 @@ class User extends Authenticatable
     ];
 
 
+
+    /* Relaciones */
     public function role(){
         return $this->belongsTo(Role::class);
     }

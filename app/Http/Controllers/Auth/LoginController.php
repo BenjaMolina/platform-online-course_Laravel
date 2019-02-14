@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\User;
+use App\Student;
+use App\UserSocialAccount;
 use App\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -47,12 +50,55 @@ class LoginController extends Controller
         if(!request()->has('code') || request()->has('denied')){
 
             session()->flash('message',['danger',__('Inicio de sesiosn cancelado')]);
-            
+
             return redirect('login');
         }
 
         //Obtenemos los datos en caso de un login exitoso
         $socialUser = Socialite::driver($driver)->user();
-        dd($socialUser);
+
+        $user = null;
+        $succes = true;
+        $email = $socialUser->email;
+
+        $check = User::whereEmail($email)->first();
+
+        if($check){
+            $user = $check;
+        }
+        else{
+            \DB::beginTransaction();
+            try{
+                $user = User::create([
+                    "name" => $socialUser->name,
+                    "email" => $email,
+                ]);
+
+                UserSocialAccount::create([
+                    "user_id" => $user->id,
+                    "provider" => $driver,
+                    "provider_uid" => $socialUser->id,
+                ]);
+
+                Student::create([
+                    "user_id" => $user->id,
+                ]);
+
+            }catch(\Exception $exception){
+                $succes = $exception->getMessage();
+                \DB::rollBack();
+            }
+        }
+
+        if($succes === true){
+            \DB::commit();
+            auth()->loginUsingId($user->id); //Hace un login automatico con el id
+
+            return redirect(route('home'));
+        }
+
+        session()->flash('message',['danger', $succes]);
+
+        return redirect('login');
     }
 }
