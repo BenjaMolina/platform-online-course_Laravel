@@ -3,9 +3,9 @@
 @section('content')
     <div class="pl-5 pr-5">
         <div class="row justify-content-center">
-            @forelse ($cursos as $curso)
+            @forelse ($courses as $course)
                 <div class="col-md-3">
-                    {{ $curso->name }}
+                    @include('partials.courses.card_course')
                 </div>
             @empty
                 <div class="alert alert-dark">
@@ -15,7 +15,7 @@
         </div>
 
         <div class="row justify-content-center">
-            {{ $cursos->links() }}
+            {{ $courses->links() }}
         </div>
     </div>
 @endsection

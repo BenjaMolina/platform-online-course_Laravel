@@ -15,12 +15,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $cursos = Course::withCount(['students'])
+        $courses = Course::withCount(['students'])
                 ->with('category','teacher','reviews')
                 ->where('status', Course::PUBLISHED)
                 ->latest() //ordenados de forma ASCENDENTE
                 ->paginate(12);
      
-        return view('home',compact('cursos'));
+        return view('home',compact('courses'));
     }
 }

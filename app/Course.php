@@ -25,6 +25,12 @@ class Course extends Model
     const PENDING = 2; 
     const REJECT = 3;
 
+
+    //Ruta para obtener la imagen del curso
+    public function pathAttachment() {
+        return "images/courses/". $this->picture;
+    }
+
     public function category(){
         return $this->belongsTo(Category::class)->select('id','name');
     }
