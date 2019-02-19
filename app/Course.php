@@ -58,4 +58,11 @@ class Course extends Model
     public function teacher(){
         return $this->belongsTo(Teacher::class);
     }
+
+
+    /*GETTERS */
+    //Obtiene el promedio del raiting de un curso, que se encuentra en la tabla reviews
+    public function getRaitingAttribute(){
+        return $this->reviews->avg('raiting');
+    }
 }
