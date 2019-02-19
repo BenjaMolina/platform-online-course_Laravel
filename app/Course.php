@@ -31,6 +31,12 @@ class Course extends Model
         return "images/courses/". $this->picture;
     }
 
+    //Cambiamos el atributo con el que se manejara la inyeccion Implicita
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function category(){
         return $this->belongsTo(Category::class)->select('id','name');
     }

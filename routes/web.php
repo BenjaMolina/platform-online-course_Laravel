@@ -20,6 +20,14 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
+Route::group(['prefix' => 'courses'], function () {
+    
+    Route::get('/{course}', 'CourseController@show')->name('courses.detail');
+});
+
+
+
+/*Ruta para retornar la imagen desde el Storage */
 Route::get('/images/{path}/{attachment}', function($path, $attachment){
     $file = sprintf('storage/%s/%s',$path,$attachment);
     
