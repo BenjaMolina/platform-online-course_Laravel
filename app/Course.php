@@ -60,7 +60,7 @@ class Course extends Model
     }
 
 
-    /*GETTERS */
+    /*GETTERS (ACCESOR)*/
     //Obtiene el promedio del raiting de un curso, que se encuentra en la tabla reviews
     public function getRaitingAttribute(){
         return $this->reviews->avg('raiting');
