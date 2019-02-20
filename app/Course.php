@@ -26,6 +26,9 @@ class Course extends Model
     const REJECT = 3;
 
 
+    //En cualquier consulta obtendra el numero de reviews y estudiantes
+    protected $withCount = ['reviews', 'students'];
+
     //Ruta para obtener la imagen del curso
     public function pathAttachment() {
         return "images/courses/". $this->picture;
@@ -70,5 +73,16 @@ class Course extends Model
     //Obtiene el promedio del raiting de un curso, que se encuentra en la tabla reviews
     public function getRaitingAttribute(){
         return $this->reviews->avg('raiting');
+    }
+
+
+    //Obtenemos Cursos relacionados de acuerdo a un curso seleccionado
+    public function relatedCourses() {
+        return Course::with('reviews')
+            ->whereCategoryId($this->category->id) /*Ver newQuery() laravel - Es una opcion mas corta de hacer un 'where', es igual a ->where('category_id, this->category->id)  */
+            ->where('id', '!=', $this->id)
+            ->latest()
+            ->limit(6)
+            ->get();
     }
 }
