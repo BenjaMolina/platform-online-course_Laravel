@@ -28,8 +28,8 @@ class CoursePolicy
     //Puede inscribirse al curso?
     public function inscribe(User $user, Course $course){
 
-        //Devuleve true o false si se encuentra dentro de los estudiantes que tiene ese curso
-        return $course->students->contains($user->student->id);
+        //Solo si NO esta inscrito en el curso
+        return ! $course->students->contains($user->student->id);
     }
     
 }

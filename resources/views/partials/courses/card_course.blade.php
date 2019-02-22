@@ -17,7 +17,9 @@
         <hr />
         <span class="badge badge-danger badge-cat">{{ $course->category->name }}</span>
         <p class="card-text">{{ str_limit($course->description, 100) }}</p>
-        <a href="#" class="btn btn-course btn-block">
+        <a 
+            href="{{ route('courses.detail',$course->slug) }}" 
+            class="btn btn-course btn-block">
             {{ __('Mas informacion') }}
         </a>
     </div>
