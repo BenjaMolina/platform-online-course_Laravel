@@ -10,7 +10,7 @@ class SubscriptionController extends Controller
     {
         $this->middleware(function ($request, $next) {
 
-            if (auth()->user()->subscribed('main')) {
+            if (auth()->user()->subscribed('main')) { //'main' es donde se encuentran los planes
                 return redirect('/')
                     ->with('message', ['warning', 'Actualmente ya estas suscrito a otro plan']);
             };
