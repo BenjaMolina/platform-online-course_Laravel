@@ -13939,6 +13939,8 @@ module.exports = __webpack_require__(44);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_StripeForm__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_StripeForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_StripeForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_stripe__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_stripe___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_stripe__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -13951,7 +13953,9 @@ window.Vue = __webpack_require__(36);
 
 
 
+
 Vue.component("stripe-form", __WEBPACK_IMPORTED_MODULE_0__components_StripeForm___default.a);
+Vue.component("stripe-checkout", __WEBPACK_IMPORTED_MODULE_1_vue_stripe__["StripeCheckout"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -48593,17 +48597,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     StripeCheckout: __WEBPACK_IMPORTED_MODULE_0_vue_stripe__["StripeCheckout"]
   },
+  mounted: function mounted() {
+    this.csrf = document.head.querySelector('meta[name="csrf-token"]').content;
+  },
+  data: function data() {
+    return {
+      // csrf: document.head.querySelector('meta[name="csrf-token"]').content
+      csrf: ""
+    };
+  },
+
   props: {
     stripe_key: "",
     name: "",
     amount: "",
-    description: ""
+    description: "",
+    action: "",
+    scrf: ""
   },
   computed: {
     product: function product() {
@@ -48644,8 +48661,14 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "form",
+    { attrs: { action: _vm.action, method: "POST" } },
     [
+      _c("input", {
+        attrs: { type: "hidden", name: "_token" },
+        domProps: { value: _vm.csrf }
+      }),
+      _vm._v(" "),
       _c("stripe-checkout", {
         attrs: {
           button: "Suscribirme",

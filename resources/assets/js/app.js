@@ -9,8 +9,10 @@ require("./bootstrap");
 window.Vue = require("vue");
 
 import StripeForm from "./components/StripeForm";
+import { StripeCheckout } from "vue-stripe";
 
 Vue.component("stripe-form", StripeForm);
+Vue.component("stripe-checkout", StripeCheckout);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

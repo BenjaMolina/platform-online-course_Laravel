@@ -26,6 +26,6 @@ class SubscriptionController extends Controller
 
     public function proccessSubscription()
     {
-
+        return "aksdlkas";
     }
 }

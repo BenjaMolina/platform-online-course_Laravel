@@ -1,5 +1,5 @@
-<form action="{{ route('subscriptions.process_subscription') }}" method="POST">
-    @csrf
+{{-- <form action="{{ route('subscriptions.process_subscription') }}" method="POST"> --}}
+    {{-- @csrf --}}
     <input 
         type="text" 
         class="form-control"
@@ -12,7 +12,7 @@
         name="{{ $product['name'] }}"
         amount="{{ $product['amount'] }}"
         description="{{ $product['description'] }}"
+        action="{{ route('subscriptions.process_subscription') }}"
     >
-
     </stripe-form>
-</form>
+{{-- </form> --}}
