@@ -1,6 +1,9 @@
 <template>
   <form :action="action" method="POST">
     <input type="hidden" name="_token" :value="csrf">
+    <input type="text" name="coupon" class="form-control" :placeholder="placeholder">
+    <input type="hidden" name="type" :value="type">
+    <hr>
     <stripe-checkout
       button="Suscribirme"
       buttonClass="btn btn-course"
@@ -31,7 +34,9 @@ export default {
     amount: "",
     description: "",
     action: "",
-    scrf: ""
+    scrf: "",
+    placeholder: "",
+    type: ""
   },
   computed: {
     product() {

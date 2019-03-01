@@ -48598,6 +48598,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -48620,7 +48623,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     amount: "",
     description: "",
     action: "",
-    scrf: ""
+    scrf: "",
+    placeholder: "",
+    type: ""
   },
   computed: {
     product: function product() {
@@ -48668,6 +48673,18 @@ var render = function() {
         attrs: { type: "hidden", name: "_token" },
         domProps: { value: _vm.csrf }
       }),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "text", name: "coupon", placeholder: _vm.placeholder }
+      }),
+      _vm._v(" "),
+      _c("input", {
+        attrs: { type: "hidden", name: "type" },
+        domProps: { value: _vm.type }
+      }),
+      _vm._v(" "),
+      _c("hr"),
       _vm._v(" "),
       _c("stripe-checkout", {
         attrs: {

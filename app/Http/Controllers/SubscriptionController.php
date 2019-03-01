@@ -24,8 +24,32 @@ class SubscriptionController extends Controller
         return view('subscriptions.plans');
     }
 
-    public function proccessSubscription()
+    public function proccessSubscription(Request $request)
     {
-        return "aksdlkas";
+
+        $token = $request->stripeToken;
+
+        try {
+            if ($request->has('coupon')) {
+                $request->user()->newSubscription('main', $request->type)
+                    ->withCoupon($request->coupon)->create($token);
+            } else {
+                $request->user()->newSubscription('main', $request->type)
+                    ->create($token);
+            }
+
+            return redirect()->route('subscriptions.admin')
+                ->with('message', ['success', 'La suscripcion se ha llevao a cabo correctamente']);
+
+        } catch (\Exception $exception) {
+            $error = $exception->getMessage();
+            return back()->with('message', ['danger', $error]);
+        }
+    }
+
+
+    public function admin()
+    {
+        return view('subscriptions.admin');
     }
 }
