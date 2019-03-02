@@ -24,16 +24,17 @@ class User extends Authenticatable
     //Billable para laravel cashier
     use Notifiable, Billable;
 
-    protected static function boot(){
+    protected static function boot()
+    {
         parent::boot();
         
         /*----Eventos----*/
 
         //Se ejecuta cuando SE ESTA CREANDO EL USUARIO el usuario
-        static::creating(function(User $user){
+        static::creating(function (User $user) {
             //Si no se esta creando un usuario desde la terminal (seeders)
-            if(!\App::runningInConsole()){
-                $user->slug = str_slug($user->name. " ". $user->last_name, "-");
+            if (!\App::runningInConsole()) {
+                $user->slug = str_slug($user->name . " " . $user->last_name, "-");
             }
         });
 
@@ -60,26 +61,31 @@ class User extends Authenticatable
     ];
 
 
-    
-    public static function navigation() {
+
+    public static function navigation()
+    {
         return auth()->check() ? auth()->user()->role->name : 'guest';
     }
 
 
     /* Relaciones */
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo(Role::class);
     }
 
-    public function student(){
+    public function student()
+    {
         return $this->hasOne(Student::class);
     }
 
-    public function teacher(){
+    public function teacher()
+    {
         return $this->hasOne(Teacher::class);
     }
 
-    public function socialAccount(){
+    public function socialAccount()
+    {
         return $this->hasOne(UserSocialAccount::class);
     }
 }
