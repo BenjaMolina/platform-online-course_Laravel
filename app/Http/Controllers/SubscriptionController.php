@@ -53,4 +53,24 @@ class SubscriptionController extends Controller
         $subscriptions = auth()->user()->subscriptions;
         return view('subscriptions.admin', compact('subscriptions'));
     }
+
+    public function resume(Request $request)
+    {
+        $subscription = $request->user()->subscription($request->plan);
+
+        if ($subscription->cancelled() && $subscription->onGracePeriod()) {
+            $request->user()->subscription($request->plan)->resume();
+
+            return back()->with('message', ['success', "Has reanudado tu suscripcion correctamente"]);
+        }
+
+        return back();
+    }
+
+    public function cancel(Request $request)
+    {
+        auth()->user()->subscription($request->plan)->cancel();
+
+        return back()->with('message', ['success', "La suscripcion se ha cancelado correctamente"]);
+    }
 }

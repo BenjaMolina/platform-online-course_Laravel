@@ -21,7 +21,7 @@
                         <th scope="col">Cantidad</th>
                         <th scope="col">Alta</th>
                         <th scope="col">Finaliza en</th>
-                        <th scope="col"></th>
+                        <th scope="col">Cancelar/Reanudar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,7 +46,7 @@
                                 <form action="{{ route('subscriptions.cancel') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="plan" value="{{ $subscription->name }}">
-                                    <button class="btn btn-success">
+                                    <button class="btn btn-danger">
                                         {{ __("Cancelar") }}
                                     </button>
                                 </form>
