@@ -45,4 +45,13 @@ class CourseController extends Controller
 
         return back()->with('message', ['success', __("Inscrito correctamente al curso")]);
     }
+
+    public function subscribed()
+    {
+        $courses = Course::whereHas('students', function ($query) {
+            $query->where('user_id', auth()->id());
+        })->get();
+
+        return view('courses.subscribed', compact($courses));
+    }
 }
