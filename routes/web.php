@@ -22,6 +22,8 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'courses'], function () {
 
+    Route::get('/{course}/inscribe', 'CourseController@inscribe')->name('courses.inscribe')->middleware('auth');
+
     Route::get('/{course}', 'CourseController@show')->name('courses.detail');
 });
 
@@ -41,7 +43,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/admin', 'InvoiceController@admin')->name('invoices.admin');
         Route::get('/{invoice}/download', 'InvoiceController@download')->name('invoices.download');
     });
-
 });
 
 
