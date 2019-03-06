@@ -52,6 +52,6 @@ class CourseController extends Controller
             $query->where('user_id', auth()->id());
         })->get();
 
-        return view('courses.subscribed', compact($courses));
+        return view('courses.subscribed', compact('courses'));
     }
 }

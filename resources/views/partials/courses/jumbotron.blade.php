@@ -3,7 +3,7 @@
         <div class="card" style="background-image: url('{{ url('images/jumbotron.png') }}')">
             <div class="text-white text-center d-flex align-items-center py-5 px-4 my-5">
                 <div class="col-5">
-                    <img src="{{  "../". $course->pathAttachment() }}" class="img-fluid">
+                    <img src="{{  $course->pathAttachment() }}" class="img-fluid">
                 </div>
                 <div class="col-5 text-left">
                     <h1>{{ __("Curso") }}: {{ $course->name }}</h1>
