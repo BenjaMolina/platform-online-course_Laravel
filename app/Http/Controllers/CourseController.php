@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use Illuminate\Http\Request;
 use App\Mail\NewStudentInCourse;
 use Illuminate\Support\Facades\Mail;
 
@@ -53,5 +54,10 @@ class CourseController extends Controller
         })->get();
 
         return view('courses.subscribed', compact('courses'));
+    }
+
+    public function addReview(Request $request)
+    {
+        return $request;
     }
 }
