@@ -20,14 +20,14 @@ use Laravel\Cashier\Billable;
  * @mixin \Eloquent
  */
 class User extends Authenticatable
-{   
+{
     //Billable para laravel cashier
     use Notifiable, Billable;
 
     protected static function boot()
     {
         parent::boot();
-        
+
         /*----Eventos----*/
 
         //Se ejecuta cuando SE ESTA CREANDO EL USUARIO el usuario
@@ -60,6 +60,12 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+
+    public function pathAttachment()
+    {
+        // return url("/images/users/$this->picture");
+        return "/images/users/$this->picture";
+    }
 
 
     public static function navigation()

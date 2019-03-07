@@ -64,7 +64,7 @@ class CourseController extends Controller
             "user_id" => auth()->id(),
             "course_id" => $request->course_id,
             "raiting" => (int)$request->rating_input,
-            "comment" => $request->messsage,
+            "comment" => $request->message,
         ]);
 
         return back()->with("message", ['success', 'Muchas gracias por valorar el curso']);
