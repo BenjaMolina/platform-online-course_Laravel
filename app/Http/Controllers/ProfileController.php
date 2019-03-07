@@ -7,16 +7,19 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function index()
     {
         $user = auth()->user()->load('socialAccount');
 
         return view('profile.index', compact('user'));
+    }
+
+
+    public function update(Request $request)
+    {
+        dd($request->all());
     }
 
     /**
@@ -62,17 +65,7 @@ class ProfileController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Profile $profile)
-    {
-        //
-    }
+
 
     /**
      * Remove the specified resource from storage.
