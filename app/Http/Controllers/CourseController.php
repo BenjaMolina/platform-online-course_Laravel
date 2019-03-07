@@ -6,6 +6,7 @@ use App\Course;
 use Illuminate\Http\Request;
 use App\Mail\NewStudentInCourse;
 use Illuminate\Support\Facades\Mail;
+use App\Review;
 
 // use Illuminate\Http\Request;
 
@@ -58,6 +59,14 @@ class CourseController extends Controller
 
     public function addReview(Request $request)
     {
-        return $request;
+
+        Review::create([
+            "user_id" => auth()->id(),
+            "course_id" => $request->course_id,
+            "raiting" => (int)$request->rating_input,
+            "comment" => $request->messsage,
+        ]);
+
+        return back()->with("message", ['success', 'Muchas gracias por valorar el curso']);
     }
 }
