@@ -15,7 +15,7 @@ class RolMiddleware
      */
     public function handle($request, Closure $next, $role)
     {
-        if (auth()->user()->role_id !== $role) {
+        if (auth()->user()->role_id !== (int)$role) {
             abort(401, __("No puedes acceder a esta zona"));
         }
         return $next($request);
