@@ -174,6 +174,24 @@
                     {data: 'actions'},
                 ],
             });
+
+            //Hacemos referencia al boton de accion del DataTable, para mostrar el modal
+            $(document).on('click', '.btnEmail', function(e){   
+                e.preventDefault();
+                const id = $(this).data('id');
+                
+                modal.find('.modal-title').text('{{ __("Enviar mensaje") }}');
+                modal.find('#modalAction').text('{{ __("Enviar mensaje") }}').show();
+
+                let $form = $("<form id='studentMessage'></form>");
+                $form.append(`<input type"hidden" name="user_id" vale=${id}`);
+                $form.append(`<textarea class="form-control" name="message"></textarea>`);
+
+                modal.find('.modal-body').html($form);
+
+                modal.modal();
+
+            });
         });
     </script>
 @endpush
