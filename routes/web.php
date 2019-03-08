@@ -31,6 +31,9 @@ Route::group(['prefix' => 'courses'], function () {
             ->middleware([sprintf("role:%s", \App\Role::TEACHER)]);
         Route::post('/store', 'CourseController@store')->name('courses.store')
             ->middleware([sprintf("role:%s", \App\Role::TEACHER)]);
+
+        Route::post('/{course}/update', 'CourseController@update')->name('courses.update')
+            ->middleware([sprintf("role:%s", \App\Role::TEACHER)]);
     });
 
     Route::get('/{course}', 'CourseController@show')->name('courses.detail');
