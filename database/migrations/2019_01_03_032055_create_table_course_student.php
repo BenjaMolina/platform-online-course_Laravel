@@ -14,7 +14,7 @@ class CreateTableCourseStudent extends Migration
     public function up()
     {
         Schema::create('course_student', function (Blueprint $table) {
-            $table->increments('id');
+            // $table->increments('id');
             $table->unsignedInteger('student_id');
             $table->unsignedInteger('course_id');
 

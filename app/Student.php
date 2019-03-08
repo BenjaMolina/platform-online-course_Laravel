@@ -16,18 +16,26 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Student extends Model
 {
-    
+
     protected $fillable = [
-        'user_id','title',
+        'user_id', 'title',
     ];
 
-    public function courses(){
+    protected $appends = ['courses_formatted']; //Se retorna cuando se usa el metodo GET (Getters)
+
+    public function courses()
+    {
         return $this->belongsToMany(Course::class);
     }
 
-    public function user(){
-        return $this->belongsTo(User::class)->select('id','role_id','name','email');
+    public function user()
+    {
+        return $this->belongsTo(User::class)->select('id', 'role_id', 'name', 'email');
     }
 
-
+    //GETTERS
+    public function getCoursesFormattedAttribute()
+    {
+        return $this->courses->pluck('name')->implode('<br>');
+    }
 }
