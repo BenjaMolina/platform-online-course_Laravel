@@ -143,6 +143,20 @@
                        </div>
                    </div>
                 @endif
+
+                @if ($user->socialAccount)
+                   <div class="card">
+                       <div class="card-header">
+                           {{ __("Acceso con Socialite") }}
+                       </div>
+                       <div class="card-body">
+                           <button class="btn btn-outline-dark btn-block">
+                               {{ __("Registrado con") }} <i class="fa fa-{{ $user->socialAccount->provider }}"></i>
+                           </button>
+                       </div>
+                   </div>
+                    
+                @endif
             </div>
         </div>
     </div>
@@ -162,12 +176,12 @@
                 lengthMenu: [5,10,25,75,100],
                 processing: true,
                 serverSide: true,
-                ajax:'{{ route('teacher.students') }}',
+                ajax:'{{ route('teacher.students') }}', //Enn esta ruta se hace la configuracion
                 language: {
                     url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
                 },
                 columns:[
-                    {data: 'user.id'},
+                    {data: 'user.id', visible: false},
                     {data: 'user.name'},
                     {data: 'user.email'},
                     {data: 'courses_formatted'},
@@ -178,7 +192,7 @@
             //Hacemos referencia al boton de accion del DataTable, para mostrar el modal
             $(document).on('click', '.btnEmail', function(e){   
                 e.preventDefault();
-                const id = $(this).data('id');
+                const id = $(this).data('id'); //accedemos al data-targe del boton de accion del datatable
                 
                 modal.find('.modal-title').text('{{ __("Enviar mensaje") }}');
                 modal.find('#modalAction').text('{{ __("Enviar mensaje") }}').show();
