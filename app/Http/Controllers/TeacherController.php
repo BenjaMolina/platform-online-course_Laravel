@@ -21,4 +21,9 @@ class TeacherController extends Controller
             ->rawColumns(['actions', 'courses_formatted']) //Mostrar columnas como HTML
             ->make(true);
     }
+
+    public function sendMessageToStudent(Request $request)
+    {
+        return response()->json(['res' => false]);
+    }
 }

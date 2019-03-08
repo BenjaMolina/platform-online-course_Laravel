@@ -192,6 +192,28 @@
                 modal.modal();
 
             });
+
+            $(document).on('click', '#modalAction', function(e){
+                $.ajax({
+                    url: "{{ route('teacher.send_message_to_student') }}",
+                    type:'POST',
+                    headers: {
+                        'x-csrf-token': $("meta[name=csrf-token]").attr('content')
+                    },
+                    data: {
+                        info: $("#studentMessage").serialize()
+                    },
+                    success:(res) => {
+                        if(res.res){
+                            modal.find('#modalAction').hide();
+                            modal.find('.modal-body').html('<div class="alert alert-success">{{ __("Mensaje enviado correctamente") }}</div>')
+                        }
+                        else{
+                            modal.find('.modal-body').html('<div class="alert alert-danger">{{ __("Ha ocurrido un error mensaje enviado el correo") }}</div>')
+                        }
+                    },
+                })
+            })
         });
     </script>
 @endpush
