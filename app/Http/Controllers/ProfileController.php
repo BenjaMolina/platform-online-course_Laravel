@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Profile;
 use Illuminate\Http\Request;
+use App\Rules\StrengthPassword;
 
 class ProfileController extends Controller
 {
@@ -19,62 +20,19 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-        dd($request->all());
-    }
+        /*Solo se actualiza el password, en caso de que uno se loguea con alguna red social
+            Y despues quiere entrar con el mismo correo colocandolo en el login y con la nueva constraseña
+            que esta editando
+        */
+        $this->validate($request, [
+            'password' => ['required', 'confirmed', new StrengthPassword],
+        ]);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        $user = auth()->user();
+        $user->password = bcrypt($request->password);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $user->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Profile $profile)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Profile $profile)
-    {
-        //
-    }
-
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Profile $profile)
-    {
-        //
+        return back()->with('message', ['success', "Usuario actualizado correctamente"]);
     }
 }

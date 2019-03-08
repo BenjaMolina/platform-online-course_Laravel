@@ -74,7 +74,7 @@
                                 <div class="col-md-6">
                                     <input 
                                         id="password-confirm"
-                                        name="password-confirmation"
+                                        name="password_confirmation"
                                         type="password"
                                         class="form-control"      
                                         required                                        
