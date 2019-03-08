@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\User;
 use App\Student;
+use Illuminate\Http\Request;
+use App\Mail\MessageToStudent;
 
 class TeacherController extends Controller
 {
@@ -24,6 +26,22 @@ class TeacherController extends Controller
 
     public function sendMessageToStudent(Request $request)
     {
-        return response()->json(['res' => false]);
+
+        $info = $request->info;
+        $data = [];
+        parse_str($info, $data);
+
+        $user = User::findOrFail($data['user_id']);
+
+        $succes = true;
+
+        try {
+            \Mail::to($user)
+                ->send(new MessageToStudent(auth()->user()->name, $data['message']));
+        } catch (\Exception $exception) {
+            $succes = false;
+        }
+
+        return response()->json(['res' => $succes]);
     }
 }

@@ -184,7 +184,7 @@
                 modal.find('#modalAction').text('{{ __("Enviar mensaje") }}').show();
 
                 let $form = $("<form id='studentMessage'></form>");
-                $form.append(`<input type"hidden" name="user_id" vale=${id}`);
+                $form.append(`<input type="hidden" name="user_id" value="${id}" />`);
                 $form.append(`<textarea class="form-control" name="message"></textarea>`);
 
                 modal.find('.modal-body').html($form);
