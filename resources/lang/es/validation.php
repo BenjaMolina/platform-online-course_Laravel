@@ -175,5 +175,11 @@ return [
         'time'                  => 'hora',
         'subject'               => 'asunto',
         'message'               => 'mensaje',
+
+        /* Atributos personalizados*/
+        'requirements.0' => 'Requisito 1',
+        'requirements.1' => 'Requisito 2',
+        'goals.1' => 'Meta 1',
+        'goals.2' => 'Meta 2',
     ],
 ];

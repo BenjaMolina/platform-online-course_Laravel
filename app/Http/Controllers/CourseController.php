@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Mail\NewStudentInCourse;
 use Illuminate\Support\Facades\Mail;
 use App\Review;
+use App\Http\Requests\CourseRequest;
 
 // use Illuminate\Http\Request;
 
@@ -76,5 +77,10 @@ class CourseController extends Controller
         $btnText = __("Enviar curso para revision");
 
         return view('courses.form', compact('course', 'btnText'));
+    }
+
+    public function store(CourseRequest $request)
+    {
+        dd($request->all());
     }
 }
