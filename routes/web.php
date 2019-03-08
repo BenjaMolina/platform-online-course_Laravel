@@ -60,6 +60,12 @@ Route::group(['prefix' => 'solicitude', "middleware" => ['auth']], function () {
 });
 
 
+Route::group(['prefix' => 'teacher', "middleware" => ['auth']], function () {
+    Route::get('/courses', 'TeacherController@courses')->name('teacher.courses');
+    Route::get('/students', 'TeacherController@students')->name('teacher.students');
+});
+
+
 
 
 /*Ruta para retornar la imagen desde el Storage */
