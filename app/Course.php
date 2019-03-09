@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Goal;
+use App\Requirement;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -24,6 +26,10 @@ class Course extends Model
 {
     use SoftDeletes; //SoftDelete
 
+    protected $fillable = [
+        'teacher_id', 'name', 'description', 'picture', 'level_id', 'category_id', 'status'
+    ];
+
     const PUBLISHED = 1;
     const PENDING = 2;
     const REJECT = 3;
@@ -31,6 +37,56 @@ class Course extends Model
 
     //En cualquier consulta obtendra el numero de reviews y estudiantes
     protected $withCount = ['reviews', 'students'];
+
+
+
+    public static function boot()
+    {
+        parent::boot();
+
+        //Cuando se esta guardando el Curso
+        static::saving(function (Course $course) {
+            if (!\App::runningInConsole()) {
+                $course->slug = str_slug($course->name, '-');
+            }
+        });
+
+        //Metodo que se ejecuta cuando se haya salvado un curso, no importa si fue un update o un store
+        static::saved(function (Course $course) {
+            if (!\App::runningInConsole()) {
+
+                if (request('requirements')) {
+                    foreach (request('requirements') as $key => $requirement_input) {
+                        if ($requirement_input) {
+                            //Se guarda o edita un requerimiento
+                            Requirement::updateOrCreate(
+                                ['id' => request('requirement_id' . $key)],
+                                [
+                                    'course_id' => $course->id,
+                                    'requirement' => $requirement_input,
+                                ]
+                            );
+                        }
+                    }
+                }
+
+                if (request('goals')) {
+                    foreach (request('goals') as $key => $goal_input) {
+                        if ($goal_input) {
+                            //Se guarda o edita un goal
+                            Goal::updateOrCreate(
+                                ['id' => request('goal_id' . $key)],
+                                [
+                                    'course_id' => $course->id,
+                                    'goal' => $goal_input,
+                                ]
+                            );
+                        }
+                    }
+                }
+            }
+        });
+    }
 
     //Ruta para obtener la imagen del curso
     public function pathAttachment()

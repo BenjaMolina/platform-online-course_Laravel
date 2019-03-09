@@ -89,5 +89,11 @@ class CourseController extends Controller
         $request->merge(['status' => Course::PENDING]);
 
         Course::create($request->input());
+
+        /*Despues de guardar se ejecuta el metodo satatic::saved() del Modelo Course
+            Para guardar los requerimientos y los goal
+        */
+
+        return  back()->with('message', ['success', __('Curso enviado correctamente, recibira un correo con cualquier informacion')]);
     }
 }
