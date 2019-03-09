@@ -8,6 +8,7 @@ use App\Mail\NewStudentInCourse;
 use Illuminate\Support\Facades\Mail;
 use App\Review;
 use App\Http\Requests\CourseRequest;
+use App\Helpers\Helper;
 
 // use Illuminate\Http\Request;
 
@@ -81,6 +82,12 @@ class CourseController extends Controller
 
     public function store(CourseRequest $request)
     {
-        dd($request->all());
+        $picture = Helper::uploadFile('picture', 'courses'); //Subimos la imagen
+
+        $request->merge(['picture' => $picture]); //Creamos un nuevo valor dentro del request
+        $request->merge(['teacher_id' => auth()->user()->id]);
+        $request->merge(['status' => Course::PENDING]);
+
+        Course::create($request->input());
     }
 }
