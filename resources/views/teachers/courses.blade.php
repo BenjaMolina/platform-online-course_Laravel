@@ -31,6 +31,8 @@
                                     'rating' => $course->custom_rating
                                 ])
                             </div>
+
+                            @include('partials.courses.teacher_action_button')
                         </div>
                     </div>
                 </div>
@@ -42,6 +44,9 @@
                     </a>
                 </div>
             @endforelse
+        </div>
+        <div class="row justify-content-center">
+            {{ $courses->links() }}
         </div>
     </div>
 @endsection
